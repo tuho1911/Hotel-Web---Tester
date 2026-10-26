@@ -1,0 +1,51 @@
+﻿@baseUrl = http://localhost:5206
+@token = REPLACE_WITH_JWT
+@roleName = Manager
+@periodType = MONTHLY
+@dashboardCode = MANAGER_DASHBOARD
+
+### 1) Lấy dashboard hiện tại theo role + kỳ
+GET {{baseUrl}}/api/dashboard-periods/current?roleName={{roleName}}&periodType={{periodType}}
+Authorization: Bearer {{token}}
+
+### 2) Lấy lịch sử kỳ gần đây
+GET {{baseUrl}}/api/dashboard-periods/{{roleName}}/{{periodType}}/history?take=12
+Authorization: Bearer {{token}}
+
+### 3) Rebuild một kỳ theo role
+POST {{baseUrl}}/api/dashboard-periods/rebuild
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "roleName": "Manager",
+  "periodType": "MONTHLY"
+}
+
+### 4) Rebuild toàn bộ dashboard current
+POST {{baseUrl}}/api/dashboard-periods/rebuild-current
+Authorization: Bearer {{token}}
+
+### 5) Rebuild affected theo event
+POST {{baseUrl}}/api/dashboard-periods/events/rebuild-affected
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "eventType": "DAMAGE_REPORTED",
+  "refId": 1
+}
+
+### 6) Endpoint alias theo slide: GET /api/dashboards/{dashboardCode}
+GET {{baseUrl}}/api/dashboards/{{dashboardCode}}?roleId=1&periodType={{periodType}}
+Authorization: Bearer {{token}}
+
+### 7) Endpoint alias theo slide: POST /api/dashboards/{dashboardCode}/refresh
+POST {{baseUrl}}/api/dashboards/{{dashboardCode}}/refresh
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "roleName": "Manager",
+  "periodType": "MONTHLY"
+}

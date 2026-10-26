@@ -1,0 +1,66 @@
+@HotelManagementAPI_HostAddress = http://localhost:5206
+
+# =============================================
+# 1. ROOM TYPES
+# =============================================
+
+### Get All Room Types
+GET {{HotelManagementAPI_HostAddress}}/api/RoomTypes
+Accept: application/json
+
+### Create Room Type (Requires Admin Token)
+POST {{HotelManagementAPI_HostAddress}}/api/RoomTypes
+Content-Type: application/json
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+{
+  "name": "Deluxe Sea View",
+  "description": "Phòng hạng sang có tầm nhìn hướng biển tuyệt đẹp",
+  "basePrice": 1500000,
+  "maxCapacity": 2
+}
+
+# =============================================
+# 2. ROOMS
+# =============================================
+
+### Get All Rooms
+GET {{HotelManagementAPI_HostAddress}}/api/Rooms
+Accept: application/json
+
+### Create Room (Requires Admin Token)
+POST {{HotelManagementAPI_HostAddress}}/api/Rooms
+Content-Type: application/json
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+{
+  "roomNumber": "101",
+  "roomTypeId": 1,
+  "status": "Available"
+}
+
+# =============================================
+# 3. INVENTORY
+# =============================================
+
+### Get Inventory
+GET {{HotelManagementAPI_HostAddress}}/api/Inventory?startDate=2026-03-20&endDate=2026-03-30
+Accept: application/json
+
+### Initialize Inventory (Requires Admin Token)
+POST {{HotelManagementAPI_HostAddress}}/api/Inventory/initialize?roomTypeId=1&startDate=2026-03-20&endDate=2026-04-20
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+### Update Inventory Price/Availability (Requires Admin Token)
+POST {{HotelManagementAPI_HostAddress}}/api/Inventory/update
+Content-Type: application/json
+Authorization: Bearer YOUR_ADMIN_TOKEN
+
+{
+  "roomTypeId": 1,
+  "inventoryDate": "2026-03-25",
+  "totalRooms": 10,
+  "availableRooms": 8,
+  "priceOverride": 1800000
+}
+

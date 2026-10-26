@@ -1,0 +1,9 @@
+{
+  "name": "KANT Hotel ERP",
+  "description": "Enterprise-level Hotel Management System with Modern Luxury UI, RBAC, and Real-time simulations.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
